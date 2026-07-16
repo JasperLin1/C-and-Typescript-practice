@@ -4,8 +4,18 @@
 // LeetCode 官方的單向鏈結串列節點定義 (ListNode)
 // ========================================================
 struct ListNode {
-    int val;
-    ListNode* next;
+    int val;        // 儲存的數值
+    ListNode* next; // 指向下一格的指標
+
+    // 🔎 說明：成員初始化列表 (Member Initializer List)
+    // 這一行 `ListNode(int x) : val(x), next(nullptr) {}` 是 C++ 的建構子。
+    // 冒號後面的 `: val(x), next(nullptr)` 是一個縮寫語法，相當於：
+    //   ListNode(int x) {
+    //       val = x;
+    //       next = nullptr;
+    //   }
+    // 它代表：當我們執行 `new ListNode(5)` 創建新節點時，會自動把 val 設為 5，並把下一站 next 設為 nullptr。
+    // 這種冒號寫法在 C++ 中執行效率更高，是標準的寫法！
     ListNode(int x) : val(x), next(nullptr) {}
 };
 
@@ -43,20 +53,29 @@ ListNode* reverseList(ListNode* head) {
     while (curr != nullptr) {
         // [在此寫下反轉迴圈的四個魔術步驟！]
         // 1. 記錄下一站：
-        
+        ListNode* next = curr -> next;
         // 2. 當前節點指向前一個節點：
-        
+        curr -> next = prev;
         // 3. prev 指針移動到當前位置：
-        
+        prev = curr;
         // 4. curr 指針移動到下一站：
+        curr = next;
         
     }
 
     // 5. 回傳反轉後的頭節點
-    return nullptr; // 請修改它
+    // 關鍵修正：反轉後，原本的尾節點變成了新的頭節點，而此時 prev 剛好指著它！
+    return prev; 
 }
 
-// 輔助函式：印出鏈結串列
+// ========================================================
+// 🔎 說明：輔助函式 (Helper Function) ── 印出鏈結串列
+// ========================================================
+// 這是一個簡單的走訪 (Traversal) 函式：
+// 1. 傳入一個頭節點指標 `head`。
+// 2. 宣告一個移動指標 `temp` 指向起點。
+// 3. 只要 `temp` 還不是空地址，就印出當前值，並用 `temp = temp->next` 走向下一格。
+// 4. 最後印出 "nullptr" 代表火車尾。
 void printList(ListNode* head) {
     ListNode* temp = head;
     while (temp != nullptr) {
