@@ -20,21 +20,40 @@
 bool isValidParentheses(std::string str) {
     // 1. 宣告一個官方 stack，型態為 char。命名為 `s`。
     // [在此寫下宣告代碼]
-    
-
+    std::stack<char> s;
 
     for (int i = 0; i < str.length(); i++) {
         char ch = str[i];
 
         // 2. 如果是左括號 '(', '[', '{' ➡️ push 進 stack
         // [在此寫下代碼]
-        
+        if(ch == '(' || ch == '[' || ch == '{'){
+            s.push(ch);
+        }
 
 
         // 3. 如果是右括號 ➡️
         //    - 檢查 stack 是否為空 (s.empty())，或者是配對失敗。
         //    - 注意：查看最上方元素要用 `s.top()`，配對成功要用 `s.pop()` 彈出。
         // [在此寫下代碼]
+        else if (ch == ')'){
+            if(s.empty() || s.top() != '('){
+                return false;
+            }
+            s.pop();
+        }
+        else if (ch == ']'){
+            if(s.empty() || s.top() != '['){
+                return false;
+            }
+            s.pop();
+        }
+        else if (ch == '}'){
+            if(s.empty() || s.top() != '{'){
+                return false;
+            }
+            s.pop();
+        }
         // 提示：
         // else if (ch == ')') {
         //     if (s.empty() || s.top() != '(') return false;
@@ -47,7 +66,7 @@ bool isValidParentheses(std::string str) {
 
     // 4. 回傳 stack 最後是否為空
     // 提示：回傳 `s.empty()`
-    return false; // 請修改它
+    return s.empty();
 }
 
 int main() {
