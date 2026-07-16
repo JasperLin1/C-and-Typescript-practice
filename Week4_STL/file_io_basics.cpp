@@ -98,7 +98,7 @@ int main() {
     for(Student s : loadedStudents) {
         std::cout << "姓名: " << s.name << ", 分數: " << s.score << std::endl;
     } 
-
+    
 
     return 0;
 }
